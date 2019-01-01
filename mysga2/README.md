@@ -1,0 +1,3 @@
+# mysga
+
+./mysga \`pwd\`/
