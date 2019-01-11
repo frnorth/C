@@ -49,6 +49,7 @@ void random_int_list_print(int *c_list, int c_length, int c_xsite) {
 }
 
 int random_double_list_find(double *c_list,int c_length, double c_x) {
+	/* find x in which area, if x<list[0]:return 0, if i<x<j:return j */
 	/* if(c_x<c_list[end-1]+0.0000001) instead of c_x<=c_list[end-1]? */
 	if(c_x<=c_list[0])
 		return 0;

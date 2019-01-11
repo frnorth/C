@@ -14,10 +14,10 @@ int main(int argc, char **argv) {
 
 	int t0=time(0);
 
-	if(argc < 2) {
-		printf("where is the work place?\n"); 
-		exit(-1); 
-	}
+//	if(argc < 2) {
+//		printf("where is the work place?\n"); 
+//		exit(-1); 		
+//	}
 	char hahac[100]; 
 	int hahad; 
 	double hahalf; 
@@ -26,9 +26,17 @@ int main(int argc, char **argv) {
 	srand((unsigned)time(NULL)); 
 
 	/* work path and conf_path which contains of the parameter*/
-	char *path = argv[1]; 
-	char *sga_conf_path = char_char(path, "sga.conf"); 
-	char *sga_evolution_path = char_char(path, "sga_evolution.txt"); 
+	char *path = NULL;//argv[1];
+	if (argc < 2)
+		path = get_current_dir_name();
+	else if (argc == 2)
+		path = argv[1];
+	else {
+		printf("too many parameters, or - parameters");
+		exit(-1);
+	}
+	char *sga_conf_path = char_char(path, "/sga.conf"); 
+	char *sga_evolution_path = char_char(path, "/sga_evolution.txt"); 
 	printf("wotk path: %s\n", path); 
 	printf("conf path: %s\n", sga_conf_path); 
 	printf("evolution path: %s\n", sga_evolution_path); 
