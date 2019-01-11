@@ -1,3 +1,4 @@
 # mysga
 
-./mysga \`pwd\`/
+./mysga 
+
