@@ -156,6 +156,11 @@ int main(int argc, char **argv) {
 	gen_best_fitness = fitness[0];
 	global_best_fitness = gen_best_fitness;
 	fsga = fopen(sga_evolution_path, "w"); 
+	fprintf(fsga,"%5s%20s","gen","gen_best_fitness");
+	for (i = 0; i < variable_num; i++) 
+		fprintf(fsga,"%15s%d","variable",i);
+	fprintf(fsga,"\n");
+
 	/*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 	/* print the chrom variable fitness*/
@@ -271,10 +276,10 @@ int main(int argc, char **argv) {
 		}
 
 		/* print the evoltion into a file */
-		fprintf(fsga,"%5d  %10.5lf  ",gen,gen_best_fitness);
+		fprintf(fsga,"%5d%20.5lf",gen,gen_best_fitness);
 
 		for (i = 0; i < variable_num; i++) {
-			fprintf(fsga,"%10.5lf  ",gen_best_variable[i]);
+			fprintf(fsga,"%15.5lf",gen_best_variable[i]);
 		}
 
 		fprintf(fsga,"\n");
@@ -291,9 +296,9 @@ int main(int argc, char **argv) {
 
 	/* output the best child */
 	fprintf(fsga,"\nthe best\n");
-	fprintf(fsga,"%5d  %10.5lf  ",global_best_gen_site,global_best_fitness);
+	fprintf(fsga,"%5d%20.5lf",global_best_gen_site,global_best_fitness);
 	for (i = 0; i < variable_num; i++) {
-		fprintf(fsga,"%10.5lf  ",global_best_variable[i]);
+		fprintf(fsga,"%15.5lf",global_best_variable[i]);
 	}
 	fclose(fsga);
 
