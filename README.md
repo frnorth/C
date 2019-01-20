@@ -1,9 +1,9 @@
 # C_project
 
-* mysga is a SGA
+- mysga is a SGA
 
-* socket is a simple server and client socket
+- socket is a simple server and client socket
 
-* structure is learning of structures
+- structure is learning of structures
 
-* learn is learning of C
+- learn is learning of C
