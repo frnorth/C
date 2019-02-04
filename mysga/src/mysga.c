@@ -14,10 +14,10 @@ int main(int argc, char **argv) {
 
 	int t0=time(0);
 
-	if(argc < 2) {
-		printf("where is the work place?\n"); 
-		exit(-1); 
-	}
+//	if(argc < 2) {
+//		printf("where is the work place?\n"); 
+//		exit(-1); 		
+//	}
 	char hahac[100]; 
 	int hahad; 
 	double hahalf; 
@@ -26,9 +26,17 @@ int main(int argc, char **argv) {
 	srand((unsigned)time(NULL)); 
 
 	/* work path and conf_path which contains of the parameter*/
-	char *path = argv[1]; 
-	char *sga_conf_path = char_char(path, "sga.conf"); 
-	char *sga_evolution_path = char_char(path, "sga_evolution.txt"); 
+	char *path = NULL;//argv[1];
+	if (argc < 2)
+		path = get_current_dir_name();
+	else if (argc == 2)
+		path = argv[1];
+	else {
+		printf("too many parameters, or - parameters");
+		exit(-1);
+	}
+	char *sga_conf_path = char_char(path, "/sga.conf"); 
+	char *sga_evolution_path = char_char(path, "/sga_evolution.txt"); 
 	printf("wotk path: %s\n", path); 
 	printf("conf path: %s\n", sga_conf_path); 
 	printf("evolution path: %s\n", sga_evolution_path); 
@@ -148,6 +156,11 @@ int main(int argc, char **argv) {
 	gen_best_fitness = fitness[0];
 	global_best_fitness = gen_best_fitness;
 	fsga = fopen(sga_evolution_path, "w"); 
+	fprintf(fsga,"%5s%20s","gen","gen_best_fitness");
+	for (i = 0; i < variable_num; i++) 
+		fprintf(fsga,"%15s%d","variable",i);
+	fprintf(fsga,"\n");
+
 	/*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*/
 
 	/* print the chrom variable fitness*/
@@ -263,10 +276,10 @@ int main(int argc, char **argv) {
 		}
 
 		/* print the evoltion into a file */
-		fprintf(fsga,"%5d  %10.5lf  ",gen,gen_best_fitness);
+		fprintf(fsga,"%5d%20.5lf",gen,gen_best_fitness);
 
 		for (i = 0; i < variable_num; i++) {
-			fprintf(fsga,"%10.5lf  ",gen_best_variable[i]);
+			fprintf(fsga,"%15.5lf",gen_best_variable[i]);
 		}
 
 		fprintf(fsga,"\n");
@@ -283,9 +296,9 @@ int main(int argc, char **argv) {
 
 	/* output the best child */
 	fprintf(fsga,"\nthe best\n");
-	fprintf(fsga,"%5d  %10.5lf  ",global_best_gen_site,global_best_fitness);
+	fprintf(fsga,"%5d%20.5lf",global_best_gen_site,global_best_fitness);
 	for (i = 0; i < variable_num; i++) {
-		fprintf(fsga,"%10.5lf  ",global_best_variable[i]);
+		fprintf(fsga,"%15.5lf",global_best_variable[i]);
 	}
 	fclose(fsga);
 
