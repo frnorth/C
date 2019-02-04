@@ -6,7 +6,7 @@ int main(int argc, char* argv[]) {
     }
     int sfd = tcp_connect(argv[1], atoi(argv[2]));
     char buf[512] = {0};
-    send(sfd, "client: Hello World", 20, 0);
+    send(sfd, "Hello World!\nAnd, my name is client", 50, 0);
     recv(sfd, buf, sizeof(buf), 0);
     puts(buf);
     close(sfd);

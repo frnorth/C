@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
             exit(-1);
         }
         puts(buf);
-        if(send(cfd, "server: Hello World", 20, 0) == -1) {
+        if(send(cfd, "Hello World!\nRespond from server", 50, 0) == -1) {
             perror("send");
             close(cfd);
             close(sfd);
