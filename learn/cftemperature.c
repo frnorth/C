@@ -8,7 +8,7 @@ main() {
 
 	lower = 0 ;		/* lower limit of temperature table */
 	upper = 100;	/* upper limit */
-	step = 10;		/* step size */
+	step = 8;		/* step size */
 
 	fahr = lower;
 	printf("%9s %9s\n", "celsius", "fahr");
