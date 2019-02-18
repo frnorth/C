@@ -21,4 +21,6 @@ main() {
 		}
 	}
 	printf("%d %d %d\n", nl, nw, nc);
+
+	printf("%c\t%d\n",'0','9');
 }
