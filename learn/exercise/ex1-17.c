@@ -1,24 +1,32 @@
 #include <stdio.h>
 #define MAXLINE 1000
+#define MAXLINENUM 100
+#define COMPARE 10
 
 int getline2(char line[], int maxline);
 void copy(char to[], char from[]);
 
 /* print longest input line */
 main() {
-	int len; /* current line length */
-	int max; /* maximum length seen so far */
+	int len, i, j; /* current line length */
 	char line[MAXLINE]; /* current input line */
-	char longest[MAXLINE]; /* longest line saved here */
+	char longline[MAXLINENUM][MAXLINE]; /* longest line saved here */
 
-	max = 0;
-	while ((len = getline2(line, MAXLINE)) > 0)
-		if (len > max) {
-			max = len;
-			copy(longest, line);
-		}
-	if (max > 0) /* there was a line */
-		printf("%s", longest);
+	i = 0;
+	while ((len = getline2(line, MAXLINE)) > 0 && i < MAXLINENUM) {
+		if (len > COMPARE)
+			copy(longline[i], line);
+		++i;
+	}
+
+	//printf("lines num is %d\n", i);
+	if ( i >= MAXLINENUM)
+		printf("\ntoo many lines input\n");
+
+	printf("lines of length longer then %d is:\n", COMPARE);
+	for (j = 0; j < i; ++j) {
+		printf("%s", longline[j]);
+	}
 	return 0;
 }
 
