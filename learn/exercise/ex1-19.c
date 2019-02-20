@@ -2,23 +2,21 @@
 #define MAXLINE 1000
 
 int getline2(char line[], int maxline);
-void copy(char to[], char from[]);
+void reverse(char to[], char from[], int len);
 
-/* print longest input line */
+/* print reverseline input line */
 main() {
-	int len; /* current line length */
-	int max; /* maximum length seen so far */
+	int len, i; /* current line length */
 	char line[MAXLINE]; /* current input line */
-	char longest[MAXLINE]; /* longest line saved here */
+	char reverseline[MAXLINE]; /* reverseline line saved here */
 
-	max = 0;
-	while ((len = getline2(line, MAXLINE)) > 0)
-		if (len > max) {
-			max = len;
-			copy(longest, line);
-		}
-	if (max > 0) /* there was a line */
-		printf("%s", longest);
+	while ((len = getline2(line, MAXLINE)) > 0) {
+		reverse(reverseline, line, len);
+		printf("%s\n", reverseline);
+		for (i = 0; i < MAXLINE; ++i)
+			reverseline[i] = '\0';
+	}
+
 	return 0;
 }
 
@@ -38,13 +36,19 @@ int getline2(char s[], int lim) {
 	return i;
 }
 
-/* copy: copy 'from' into 'to'; assume to is big enough */
-void copy(char to[], char from[]) {
-	int i;
+/* reverse, 然而如果只能由一个参数reverse(s), 要怎么做呢? */
+void reverse(char to[], char from[], int len) {
+	int i, lastone;
 
 	i = 0;
-	while ((to[i] = from[i]) != '\0')
-		++i;
+	if (from[len-1] == '\n')
+		lastone = 2;
+	else 
+		lastone = 1;
 
+	while (i < len) {
+		to[i] = from[len - lastone - i];
+		++i;
+	}
 	//to[i] = 'h';
 }
