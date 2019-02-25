@@ -4,6 +4,8 @@
 
 int getword(char program[], int maxlength);
 void decomment(char program[], char pureprogram[]);
+void checkpair(char program[], char c1, char c2);
+void checkpairquote(char program[], char c1, char c2);
 
 main() {
 	int len;
@@ -11,8 +13,12 @@ main() {
 
 	len = getword(program, MAXLENGTH);
 	decomment(program, pureprogram);
-
 	printf("%s", pureprogram);
+
+	checkpair(program, '(', ')');
+	checkpair(program, '[', ']');
+	checkpair(program, '{', '}');
+
 	if (len >= MAXLENGTH - 1)
 		printf("Too many words!\n");
 
@@ -57,5 +63,36 @@ void decomment(char program[], char pureprogram[]) {
 			++i;
 			++j;
 		}
+	}
+}
+
+void checkpair(char program[], char c1, char c2) {
+	int count, i, line;
+
+	i = 0;
+	count = 0;
+	while (program[i] != '\0') {
+		if (program[i] == c1)
+			++count;
+		if (program[i] == c2)
+			--count;
+		++i;
+	}
+	if (count > 0)
+		printf("lack of %d %c\n", count, c2);
+	if (count < 0)
+		printf("lack of %d %c\n", -1 * count, c1);
+}
+void checkpairquote(char program[], char c1, char c2) {
+	int count, i, line;
+
+	i = 0;
+	line = 1;
+	while (program[i] != '\0') {
+		if (program[i] = '\n')
+			++line;
+		if (program[i] == c2)
+			if (count > 1)
+				printf("lake %d %c ", count -1, c1);
 	}
 }
