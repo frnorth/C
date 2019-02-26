@@ -5,7 +5,8 @@
 int getword(char program[], int maxlength);
 void decomment(char program[], char pureprogram[]);
 void checkpair(char program[], char c1, char c2);
-void checkpairquote(char program[], char c1, char c2);
+void checknest(char program[], char c1, char c2, char c3, char c4);
+void checkquote(char program[], char c);
 
 main() {
 	int len;
@@ -15,9 +16,15 @@ main() {
 	decomment(program, pureprogram);
 	printf("%s", pureprogram);
 
+
+	checkquote(program, '"');
+	checkquote(program, '\'');
+
 	checkpair(program, '(', ')');
 	checkpair(program, '[', ']');
 	checkpair(program, '{', '}');
+
+	checknest(program, '(', ')', '[', ']');
 
 	if (len >= MAXLENGTH - 1)
 		printf("Too many words!\n");
@@ -67,32 +74,92 @@ void decomment(char program[], char pureprogram[]) {
 }
 
 void checkpair(char program[], char c1, char c2) {
-	int count, i, line;
+	int i, count, line;
 
 	i = 0;
 	count = 0;
+	line = 1;
 	while (program[i] != '\0') {
+			
 		if (program[i] == c1)
 			++count;
 		if (program[i] == c2)
 			--count;
+		if (program[i] == '\n')
+			++line;
+		if (count < 0) {
+			printf("Lack of %c in line %d\n", c1, line);
+			count = 0;
+		}
 		++i;
 	}
 	if (count > 0)
-		printf("lack of %d %c\n", count, c2);
-	if (count < 0)
-		printf("lack of %d %c\n", -1 * count, c1);
+		printf("Lack of %d %c\n", count, c2);
 }
-void checkpairquote(char program[], char c1, char c2) {
-	int count, i, line;
+void checknest(char program[], char c1, char c2, char c3, char c4) {
+	int i, count1, count2, nest, condi, line;
 
 	i = 0;
+	count1 = 0;
+	count2 = 0;
+	nest = 0;
+	line = 1;
+	condi = 0;
+	while (program[i] != '\0') {
+		if (program[i] == '\n')
+			++line;
+
+		if (program[i] == c1)
+			++count1;
+		if (program[i] == c2)
+			--count1;
+		if (program[i] == c3)
+			++count2;
+		if (program[i] == c4)
+			--count2;
+
+		if (count1 > 0 && count2 == 0 )
+			condi == 1;
+		if (condi == 1 && count2 > 0)
+			nest == 1;
+		if (nest == 1 && count1 == 0 && count2 > 0)
+			printf("nest like %c %c %c in line %d", c1, c3, c2, line);
+		if (nest == 1 && count1 > 0 && count2 == 0)
+			nest == 0;
+		if (condi == 1 && count1 == 0 && count2 == 0)
+			condi == 0;
+
+		if (count1 == 0 && count2 > 0 )
+			condi == 2;
+		if (condi == 2 && count1 > 0)
+			nest == 1;
+		if (nest == 1 && count1 > 0 && count2 == 0)
+			printf("nest like %c %c %c in line %d", c3, c1, c4, line);
+		if (nest == 1 && count1 == 0 && count2 > 0)
+			nest == 0;
+		if (condi == 2 && count1 == 0 && count2 == 0)
+			condi == 0;
+		
+
+		++i;
+	}
+}
+void checkquote(char program[], char c) {
+	int i, count, line;
+
+	i = 0;
+	count = 0;
 	line = 1;
 	while (program[i] != '\0') {
-		if (program[i] = '\n')
-			++line;
-		if (program[i] == c2)
-			if (count > 1)
-				printf("lake %d %c ", count -1, c1);
+			
+		if (program[i] == c) {
+			if (count == 1)
+				count = 0;
+			if (count == 0)
+				count = 1;;
+		}
+		++i;
 	}
+	if (count == 1)
+		printf("Lack of a %c\n", c);
 }
