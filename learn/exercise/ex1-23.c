@@ -97,18 +97,19 @@ void checkpair(char program[], char c1, char c2) {
 		printf("Lack of %d %c\n", count, c2);
 }
 void checknest(char program[], char c1, char c2, char c3, char c4) {
-	int i, count1, count2, nest, condi, line;
+	int i, count1, count2, type, nesttype, line;
 
 	i = 0;
 	count1 = 0;
 	count2 = 0;
-	nest = 0;
+	type = 0;
+	nesttype = 0;
 	line = 1;
-	condi = 0;
 	while (program[i] != '\0') {
 		if (program[i] == '\n')
 			++line;
 
+		/* 判断括号的状态 judge the state of () and [] */
 		if (program[i] == c1)
 			++count1;
 		if (program[i] == c2)
@@ -118,28 +119,48 @@ void checknest(char program[], char c1, char c2, char c3, char c4) {
 		if (program[i] == c4)
 			--count2;
 
-		if (count1 > 0 && count2 == 0 )
-			condi == 1;
-		if (condi == 1 && count2 > 0)
-			nest == 1;
-		if (nest == 1 && count1 == 0 && count2 > 0)
-			printf("nest like %c %c %c in line %d", c1, c3, c2, line);
-		if (nest == 1 && count1 > 0 && count2 == 0)
-			nest == 0;
-		if (condi == 1 && count1 == 0 && count2 == 0)
-			condi == 0;
+		/* judge the state of type ((( or [[[ or ' ' */
+		if (type == 0) {
+			if (count1 > 0)
+				type = 1;
+			else if (count2 > 0)
+				type = 2;
+		}
+		else if (type == 1) {
+			if (count1 == 0)
+				type = 0;
+			/* 基于type值的type值转换判断, 与基于type值的nesttype值判断, 是否可以供用一个 else if(type==1) ? */
+			///* 如果是else if, ( [ ) 这种情况, if(count==0)type==0之后还会继续执行if(count2>0)nest==1 */
+			///* 如果是else if, 那么tpye值转换的判断成功会影响nesttype值的判断 */
+			if (count2 > 0)
+				nesttype = 1;
+			else if (count2 == 0)
+				nesttype = 0;
+		}
+		else if (type == 2) {
+			if (count2 == 0)
+				type = 0;
+			/* [ ( */
+			if (count1 > 0)
+				nesttype = 2;
+			else if (count1 == 0)
+				nesttype = 0;
+		}
 
-		if (count1 == 0 && count2 > 0 )
-			condi == 2;
-		if (condi == 2 && count1 > 0)
-			nest == 1;
-		if (nest == 1 && count1 > 0 && count2 == 0)
-			printf("nest like %c %c %c in line %d", c3, c1, c4, line);
-		if (nest == 1 && count1 == 0 && count2 > 0)
-			nest == 0;
-		if (condi == 2 && count1 == 0 && count2 == 0)
-			condi == 0;
-		
+		if (nesttype == 1) {
+			if (program[i] == c2)
+				printf("nest %c %c %c at line %d\n", c1, c3, c2, line);
+			else if (program[i] == c1)
+				type == 2;
+		}
+		if (nesttype == 2) {
+			if (program[i] == c4)
+				printf("nest %c %c %c at line %d\n", c3, c1, c4, line);
+			else if (program[i] == c3)
+				type == 1;
+		}
+
+		printf("%d %d %d %d\n", count1, count2, type, nesttype);
 
 		++i;
 	}
