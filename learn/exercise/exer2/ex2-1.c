@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 main() {
+	int countf, countd, countld;
 	int i, j;
 	char c;
 	short s;
@@ -13,8 +14,11 @@ main() {
 	double d;
 	long double ld;
 
-	i=j=c=s=l=ui=uc=ul=us=f=d=ld=1;
-	for (j = 0; j < 1023; ++j) {
+	countf = countd = countld = 0;
+	i=j=c=s=l=ui=1;
+	uc=1;
+	ul=us=f=d=ld=1;
+	for (j = 0; j < 1500; ++j) {
 		i*=2;
 		c*=2;
 		s*=2;
@@ -26,29 +30,51 @@ main() {
 		f*=2;
 		d*=2;
 		ld*=2;
-		if (i > i*2) printf("int %d\n", i);
-		if (c > c*2) printf("char %d\n", c);
-		if (s > s*2) printf("short %d\n", s);
-		if (l > l*2) printf("long %ld\n", l);
-		if (ui > ui*2) printf("ui %d\n", ui);
-		if (uc > uc*2) printf("uc %d\n", uc);
-		if (us > us*2) printf("us %d\n", us);
-		if (ul > ul*2) printf("ul %ld\n", ul);
-		if (f > f*2) printf("%f\n", f);
-		if (d > d*2) printf("%f\n", d);
-		if (ld > ld*2) printf("%f\n", ld);
+		if (!((int)(i*2) >= i)) {
+			printf("int %d\n", i);
+			i = 0;
+		}
+		if (!(c*2 >= c)) {
+			 printf("char %d\n", c);
+			c = 0;
+		}
+		if (!(s*2 >= s)) {
+			printf("short %d\n", s);
+			s = 0;
+		}
+		if (!(l*2 >= l)) {
+			printf("long %ld\n", l);
+			l = 0;
+		}
+		if (!(ui*2 >= ui)) {
+			printf("ui %d\n", ui);
+			ui = 0;
+		}
+		if (!((unsigned char)(uc*2) >= uc)) {
+			printf("uc %d\n", uc);
+			uc = 0;
+		}
+		if (!(us*2 >= us)) {
+			printf("us %d\n", us);
+			us = 0;
+		}
+		if (!(ul*2 >= ul)) {
+			printf("ul %ld\n", ul);
+			ul = 0;
+		}
+		if (!((float)(f*4) > (float)(f*2)) && countf == 0) {
+			printf("%f\n", f);
+			countf = 1;
+		}
+		if (!((double)(d*4) > (double)(d*2)) && countd == 0) {
+			printf("%f\n", d);
+			countd = 1;
+		}
+		if (!((long double)(ld*4) > (long double)(ld*2)) /*&& countld == 0*/) {
+			printf("%f\n", ld);
+			countld = 1;
+		}
 	}
-	printf("\nint %d\n", i);
-	printf("char %d\n", c);
-	printf("short %d\n", s);
-	printf("long %ld\n", l);
-	printf("ui %d\n", ui);
-	printf("uc %d\n", uc);
-	printf("us %d\n", us);
-	printf("ul %ld\n", ul);
-	printf("%f\n", f);
-	printf("%f\n", d);
-	printf("%f\n", ld);
 
 	return 0;
 }
