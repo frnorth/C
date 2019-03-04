@@ -54,7 +54,7 @@ main() {
 			printf("uc %d\n", uc);
 			uc = 0;
 		}
-		if (!(us*2 >= us)) {
+		if (!((unsigned short)(us*2) >= us)) {
 			printf("us %d\n", us);
 			us = 0;
 		}
