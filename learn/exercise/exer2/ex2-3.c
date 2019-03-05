@@ -4,6 +4,7 @@
 #define MAXLINE 30
 unsigned int next = 1;
 
+int htoi(char s[]);
 int atoi(char s[]);
 int lower(int c);
 void getline3(char s[], int limit);
@@ -14,9 +15,13 @@ main() {
 	char s[MAXLINE];
 
 	getline3(s, MAXLINE);
-	num = atoi(s);
-	
+
+	num = atoi(s);	
 	printf("\n%s %d\n", s, num);
+
+	num = htoi(s);	
+	printf("\n%s %d\n", s, num);
+
 	printf("%f\n", sqrt(2));
 
 	//srand(10);
@@ -53,6 +58,31 @@ int atoi(char s[]) {
 	for (i = 0; /* s[i] >= '0' && s[i] <= '9' */ isdigit(s[i]); ++i)
 		n = 10 * n + (s[i] - '0');
 	return n;
+}
+
+int htoi(char s[]) {
+	int i, tmp, n;
+
+	i = 0;
+	n = 0;
+	if (s[0] == '0' && (s[1] == 'x' || s[1] == 'X')) {
+		i = 2;
+		while (s[i] != '\0' && ((s[i] >= '0' && s[i] <= '9') || (s[i] >= 'a' && s[i] <= 'f') || (s[i] >= 'A' && s[i] <= 'F'))) {
+			if (s[i] >= 'A' && s[i] <= 'F')
+				tmp = s[i] - 'A' + 10;
+			else if (s[i] >= 'a' && s[i] <= 'f')
+				tmp = s[i] - 'a' + 10;
+			else 
+				tmp = s[i] - '0';
+			n = 16 * n + tmp;
+			++i;
+		}
+		return n;
+	}
+	else {
+		printf("%s is not a hexadecimal number", s);
+		return 0;
+	}
 }
 
 /* lower: convert c to lower case; ASCII only */
