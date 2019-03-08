@@ -36,12 +36,19 @@ void showbits (unsigned x) {
 		i = i << 1;
 		printf("%3d", num++);
 	}
+	printf("%3d", num++);
+	printf("%3d", num++); // test out of the bonder
+
 	printf("\n");
-	while (i != 1) {
-		if ((x & i) != 0)
-			printf("%3d", 1);
-		else
-			printf("%3d", 0);
+	while (i >= 1) {
+		printf("%3d", ((x & i) != 0));
+		i = i >> 1;
+	}
+	printf("%3d", ((x & i) != 0)); // test out of the bonder
+	printf("\n");
+
+	for (i = num = 1; num < 100; num ++) {
+		printf("%3d", ((x & i) != 0));
 		i = i >> 1;
 	}
 	printf("\n");
