@@ -4,6 +4,7 @@
 #define SEARCH 10
 
 int binsearch(int x, int v[], int n);
+/* binsearch2 is the exercise 3-1 */
 int binsearch2(int x, int v[], int n);
 
 main()
