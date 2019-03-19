@@ -1,9 +1,13 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <string.h>
 
 #define LENGTH 200
+#define NUM_LENGTH 15
 
 void gettext2(char text[], int maxlength);
+void shellsort(int v[], int n);
+void reverse(char s[]);
 
 main()
 {
@@ -11,7 +15,21 @@ main()
 	char t[LENGTH];
 
 	gettext2(t, LENGTH);
-	printf("%d\n", atoi(t));
+	reverse(t);
+	printf("%s\n", t);
+
+	/*
+	int num[NUM_LENGTH];
+
+	for (i = 0; i < NUM_LENGTH; i++) {
+		printf("the %d th num: ", i);
+		gettext2(t, LENGTH);
+		num[i] = atoi(t);
+	}
+	shellsort(num, NUM_LENGTH);
+	for (i = 0; i < NUM_LENGTH; i++)
+		printf("%d\n", num[i]);
+	*/
 
 	return 0;
 }
@@ -52,4 +70,16 @@ void shellsort(int v[], int n)
 				v[j] = v[j + gap];
 				v[j + gap] = temp;
 			}
+}
+
+/* reverse: reverse string s in place */
+void reverse(char s[])
+{
+	int c, i, j;
+
+	for (i = 0, j = strlen(s) - 1; i < j; i++, j--) {
+		c = s[i];
+		s[i] = s[j];
+		s[j] = c;
+	}
 }
