@@ -18,6 +18,9 @@ main()
 	reverse(t);
 	printf("%s\n", t);
 
+	if(1 > 2, 2 > 1)
+		printf("%d\n", i);
+
 	/*
 	int num[NUM_LENGTH];
 
