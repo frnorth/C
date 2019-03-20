@@ -33,7 +33,7 @@ void expands(char s1[], char s2[])
 		if (s1[i] == '-') {
 			if (i == 0 )
 				;
-			else if ( )
+			else if ((i - 1) == '\t' && )
 		}
 	}
 }
