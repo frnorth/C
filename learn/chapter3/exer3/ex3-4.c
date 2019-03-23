@@ -1,30 +1,42 @@
 #include <stdio.h>
-#include <string.h>
 #include <limits.h>
-
-#define LENGTH 200
-#define NUM -2354519
+#include <string.h>
 
 void itoa(int n, char s[]);
 void reverse(char s[]);
+void showbits (int x);
 
 main()
 {
-	int i;
-	char s[LENGTH];
-	char s2[LENGTH];
+	showbits(INT_MIN+8);
+	showbits(-1);
+	showbits(-3);
+	showbits(-16);
+	showbits(INT_MAX);
 
-	itoa(INT_MIN+1, s);
-	printf("%s\n", s);
-	for (i = 0; s[i] != '\0'; i++)
-		printf("%d ", s[i]);
+	if(INT_MIN < 0)
+		printf("%d\n", INT_MIN);
+	printf("%d\n", INT_MAX);
+
+}
+
+void showbits (int x) {
+	unsigned i, num;
+
+	num = 0;
+	i = 1;
+	while (i != (~i + 1)) {
+		i = i << 1;
+		printf("%3d", num++);
+	}
+	printf("%3d", num++);
 	printf("\n");
-	itoa(INT_MIN, s2);
-	printf("%s\n", s2);
-	for (i = 0; s2[i] != '\0'; i++)
-		printf("%d ", s2[i]);
-
-	return 0;
+	while (i >= 1) {
+		printf("%3d", ((x & i) != 0));
+		i = i >> 1;
+	}
+	printf("\n");
+	printf("\n");
 }
 
 /* itoa: convert n to characters in s */
@@ -38,7 +50,7 @@ void itoa(int n, char s[])
 	do {	/* generate digis in reverse order */
 		s[i++] = n % 10 + '0';	/* get next digit */
 		printf("%d, %d, %d, %d, %c\n", n % 10, n / 10, n, -1 * n, s[i-1]); /* an interesting statement */
-	} while ((n /= 10) > 0);		/* delete it */
+	} while ((n /= 10) != 0);		/* delete it */
 	if (sign < 0)
 		s[i++] = '-';
 	s[i] = '\0';
