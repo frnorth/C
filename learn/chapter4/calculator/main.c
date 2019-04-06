@@ -7,6 +7,7 @@
 #define SIN '1'
 #define EXP '2'
 #define POW '3'
+#define VALUBLE '4'
 #define YEAH 1
 #define NOP 0
 
@@ -39,6 +40,17 @@ main()
 			//printf("sin, %f", sin(30.2));
 			/* 3.1415926 * 2 == 360度 */
 			push(sin(pop()));
+			break;
+		case EXP:
+			push(exp(pop()));
+			break;
+		case POW:
+			op2 = pop();
+			push(pow(pop(),op2));
+			break;
+		case VALUBLE:
+			printf("\t%s: %.8g\n",s , pop());
+			clear();
 			break;
 		case '+':
 			push(pop() + pop());

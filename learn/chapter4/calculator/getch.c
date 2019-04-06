@@ -15,5 +15,5 @@ void ungetch(int c)	/* push character back on input */
 		printf("ungetch: too many characters\n");
 	else
 		buf[bufp++] = c;
-		//printf("%d\t%d%c\t%d%c\n", bufp, buf[0],buf[0], buf[bufp - 1],buf[bufp - 1]);
+	printf("%d\t%d%c\t%d%c\n", bufp, buf[0],buf[0], buf[bufp - 1],buf[bufp - 1]);
 }
