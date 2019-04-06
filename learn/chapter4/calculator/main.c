@@ -1,24 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>		/* for atof() */
+#include <math.h>
 
 #define MAXOP 100		/* max size of operand or operator */
 #define NUMBER '0'		/* signal that a number was found */
+#define SIN '1'
+#define EXP '2'
+#define POW '3'
+#define YEAH 1
+#define NOP 0
 
 int getop(char []);
 void push(double);
 double pop(void);
+void clear(void);
+void swap(void);
+//double sin(double);
 
 /* reverse Polish calculator */
 main()
 {
-	int type;
+	int type, count=0;
 	double op2;
 	char s[MAXOP];
 
 	while ((type = getop(s)) != EOF) {
+		//if(count > 10)
+		//	break;
+		//count++;
+		//printf("%c\n", type);
 		switch (type) {
 		case NUMBER:
+			//printf("%f\n",atof(s));
+			//printf("%f\n",atof(s));
 			push(atof(s));
+			break;
+		case SIN:
+			//printf("sin, %f", sin(30.2));
+			/* 3.1415926 * 2 == 360度 */
+			push(sin(pop()));
 			break;
 		case '+':
 			push(pop() + pop());
@@ -37,8 +57,17 @@ main()
 			else
 				printf("error: zero divisor\n");
 			break;
+		case '%':
+			op2 = pop();
+			if (op2 > 1.0)
+				push((double)((int)pop() % (int)op2));
+			else
+				printf("error: zero moduluer\n");
+			break;
 		case '\n':
-			printf("\t%,8g\n", pop());
+			printf("\t%.8g\n", pop());
+			//swap();
+			clear();
 			break;
 		default:
 			printf("error: unknow command %s\n", s);
