@@ -11,12 +11,13 @@ main() {
 	enum boolean { NO, YES };
 	int i;
 
-	for (i = 'A'; i < 200; i++) {
-		printf("%c\t", i);
+	for (i = 0; i < 200; i++) {
+		printf("%d\t%c\t", i, i);
 		if(islower(i))
 			printf("%c", i);
 		printf("\n");
 	}
+	printf("\t\t%d\n",'\n');
 
 	printf("%d\n", INT_MAX);
 	printf("%ld\n", LONG_MAX); // 注意这里要 %ld

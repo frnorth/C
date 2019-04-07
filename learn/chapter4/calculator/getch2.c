@@ -1,21 +1,27 @@
 #include <stdio.h>
-#define BUFSIZE 100
 
-char buf[BUFSIZE];	/* buffer for ungetch */
-int bufp = 0;		/* next free position in buf */
+char buf;	/* buffer for ungetch */
+int bufstate = 0;		/* next free position in buf */
 
 int getch(void)		/* get a (possibly pushed back) character */
 {
-	return (bufp > 0) ? buf[--bufp] : getchar();
+	if (bufstate > 0) {
+		bufstate = 0;
+		return buf;
+	}
+	else
+		return getchar();
 }
 
 void ungetch(int c)	/* push character back on input */
 {
-	if (bufp >= BUFSIZE)
+	if (bufstate > 0)
 		printf("ungetch: too many characters\n");
-	else
-		buf[bufp++] = c;
-	printf("%d\t%d%c\t%d%c\n", bufp, buf[0],buf[0], buf[bufp - 1],buf[bufp - 1]);
+	else {
+		buf = c;
+		bufstate = 1;
+	}
+	printf("%d %c\n", bufstate, buf);
 }
 
 /* where to use this function? */
