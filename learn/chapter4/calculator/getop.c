@@ -12,11 +12,15 @@
 
 int getch(void);
 void ungetch(int);
+void ungets(char []);
 int issep(int c, int c1, int c2, int c3);
 
 /* getop: get next operator or numeric operand */
 int getop(char s[])
 {
+
+	//ungets("123");
+
 	int i, c;
 
 	while ((s[0] = c = getch()) == ' ' || c == '\t')
@@ -32,11 +36,11 @@ int getop(char s[])
 	if (issep(c,'p','o','w'))
 		return POW;
 
-	if (islower(c) || isupper(c)) {
-		while (islower(c) || isupper(c)) 
-			s[++i] = c = getch();
+	/* a very big problem, if input: '1' --- 'k' --- 'ctrl +d', 停止本次输入, 然而会hang住, 再ctrl + d, 会返回valuble, 就是说第二次的ctrl + d是让getop()了一个EOF */
+	while (islower(c) || isupper(c)) {
+		s[++i] = c = getch();
 		s[i] = '\0';
-
+		/*  如果名字val 后面跟了个1, 那么, 如果没有下面的判断, 1就不会被放回到input中 */
 		if (c != EOF && c != '\n')
 			ungetch(c);
 		return VALUBLE;
@@ -48,10 +52,14 @@ int getop(char s[])
 
 	/* get the number */
 	i = 0;
-	if (isdigit(c))		/* collec integer part */
-		/* 为什么++i, ++放在前面? */
-		while (isdigit(s[++i] = c = getch()))
-			;
+	//if (isdigit(c))		/* collec integer part */
+	//	/* 为什么++i, ++放在前面? */
+	//	while (isdigit(s[++i] = c = getch()))
+	//		;
+	/* why not like this? */
+	while (isdigit(c))
+		s[++i] = c = getch();
+
 	if (c == '.')		/* collect fraction part */
 		/* 至于这里为什么用++i而不用i++, 是为了保证数字后面的那个字符要被'\0'覆盖掉吗? */
 		while (isdigit(s[++i] = c = getch()))
