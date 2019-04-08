@@ -1,12 +1,25 @@
 #include <stdio.h>
 #define BUFSIZE 100
+#define EOFSTATE '5'
 
 char buf[BUFSIZE];	/* buffer for ungetch */
 int bufp = 0;		/* next free position in buf */
 
-int getch(void)		/* get a (possibly pushed back) character */
+//int getch(void)		/* get a (possibly pushed back) character */
+//{
+//	return (bufp > 0) ? buf[--bufp] : getchar();
+//}
+
+/* handle the pushed-back EOF */
+int getch(void)
 {
-	return (bufp > 0) ? buf[--bufp] : getchar();
+	if (bufp > 0) {
+		if (buf[--bufp] == EOF)
+			return EOFSTATE;
+		else
+			return buf[bufp];
+	}
+	return getchar();
 }
 
 void ungetch(int c)	/* push character back on input */
