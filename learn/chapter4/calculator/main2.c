@@ -2,6 +2,7 @@
 #include <stdlib.h>		/* for atof() */
 #include <math.h>
 
+#define MAXLINE 1000
 #define MAXOP 100		/* max size of operand or operator */
 #define NUMBER '0'		/* signal that a number was found */
 #define SIN '1'
@@ -12,7 +13,8 @@
 #define YEAH 1
 #define NOP 0
 
-int getop(char []);
+int getline2(char s[], int lim);
+int getop(char line[], char s[]);
 void push(double);
 double pop(void);
 void clear(void);
@@ -22,76 +24,64 @@ void swap(void);
 /* reverse Polish calculator */
 main()
 {
-	int type, count=0;
+	int type, len, count = 0;
 	double op2;
 	char s[MAXOP];
+	char line[MAXLINE];
 
-	while ((type = getop(s)) != EOF) {
-	//while ((type = getop(s))) {
-		//if(count > 10)
-		//	break;
-		//count++;
-		//printf("%c\n", type);
-		switch (type) {
-		//case EOF:
-		//	printf("the EOF ");
-		//	break;
-		case EOFSTATE:
-			printf("the pushed back EOF here\n");
-			break;
-		case NUMBER:
-			//printf("%f\n",atof(s));
-			push(atof(s));
-			break;
-		case SIN:
-			//printf("sin, %f", sin(30.2));
-			/* 3.1415926 * 2 == 360度 */
-			push(sin(pop()));
-			break;
-		case EXP:
-			push(exp(pop()));
-			break;
-		case POW:
-			op2 = pop();
-			push(pow(pop(),op2));
-			break;
-		case VALUBLE:
-			printf("\t%s: %.8g\n",s , pop());
-			clear();
-			break;
-		case '+':
-			push(pop() + pop());
-			break;
-		case '*':
-			push(pop() * pop());
-			break;
-		case '-':
-			op2 = pop();
-			push(pop() - op2);
-			break;
-		case '/':
-			op2 = pop();
-			if (op2 != 0.0)
-				push(pop() / op2);
-			else
-				printf("error: zero divisor\n");
-			break;
-		case '%':
-			op2 = pop();
-			if (op2 > 1.0)
-				push((double)((int)pop() % (int)op2));
-			else
-				printf("error: zero moduluer\n");
-			break;
-		case '\n':
-			printf("\t%.8g\n", pop());
-			//swap();
-			clear();
-			break;
-		default:
-			printf("error: unknow command %s\n", s);
-			break;
+	while ((len = getline2(line, MAXLINE)) > 0) {
+		//printf("%s\n",line);
+		/* 让getop 直接将line已经读过的内容清空, 这样来记录line的位置 */
+		while ((type = getop(line, s)) != EOF) {
+			printf("line: %s\n",line);
+			//if (count > 5)
+			//	break;
+			//printf("%d\n", count);
+			//count++;
+			switch (type) {
+			case NUMBER:
+				printf("%s\n", s);
+				push(atof(s));
+				break;
+			case '+':
+				//printf("2\n");
+				push(pop() + pop());
+				break;
+			case '*':
+				push(pop() * pop());
+				break;
+			case '-':
+				op2 = pop();
+				push(pop() - op2);
+				break;
+			case '/':
+				op2 = pop();
+				if (op2 != 0.0)
+					push(pop() / op2);
+				else
+					printf("error: zero divisor\n");
+				break;
+			case '%':
+				op2 = pop();
+				if (op2 > 1.0)
+					push((double)((int)pop() % (int)op2));
+				else
+					printf("error: zero moduluer\n");
+				break;
+			case '\n':
+				printf("result is \t%.8g\n", pop());
+				clear();
+				break;
+			case '\0':
+				printf("\\0, goto the goon\n");
+				goto goon;
+			default:
+				printf("error: unknow command %s\n", s);
+				break;
+			}
 		}
+goon:
+		printf("getop over\n");
 	}
 	return 0;
 }
