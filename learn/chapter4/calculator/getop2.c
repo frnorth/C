@@ -12,8 +12,6 @@
 #define NOP 0
 
 int getch(void);
-void ungetch(int);
-void ungets(char []);
 int issep(int c, int c1, int c2, int c3);
 
 /* getop: get next operator or numeric operand */
