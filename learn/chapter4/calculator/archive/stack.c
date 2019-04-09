@@ -1,4 +1,6 @@
 #include <stdio.h>
+/* seems like no need include "calc.h", why is that in the book "C programing languane 4.5"? */
+//#include "calc.h"
 #define MAXVAL 100		/* maximum depth of val stack */
 
 int sp = 0;				/* next free stack position */
@@ -8,18 +10,17 @@ double val[MAXVAL];		/* value stack */
 void push(double f)
 {
 	int i;
-
-	extern int bufp;
-	printf("stack file print bufp: %d\n", bufp);
+	//extern bufp;
 
 	if (sp < MAXVAL)
 		val[sp++] = f;
 	else
 		printf("error: stack full, can't push %g\n", f);
 
+	//printf("bufp: %d\n", bufp);
 	printf("stack: ");
 	for (i = 0; i < sp; i++)
-		printf("%f ", val[i]);
+		printf("%.3g ", val[i]);
 	printf("\n");
 }
 

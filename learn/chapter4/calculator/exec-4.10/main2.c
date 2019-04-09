@@ -80,6 +80,7 @@ main()
 				break;
 			}
 		}
+/* seems like, once "while ((type = getop(line, s)) != EOF)" is done, statement  below "goon" label would be executed, by default. Example: ./a.out -- 1 -- 2 -- ctrl + d -- ctrl + d, then while done(case '\0' was not executed), and "getop over" printed */
 goon:
 		printf("getop over\n");
 	}

@@ -1,20 +1,8 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "calc.h"
 
-#define NUMBER '0'
-#define SIN '1'
-#define EXP '2'
-#define POW '3'
-#define VALUBLE '4'
-#define EOFSTATE '5'
-#define YEAH 1
-#define NOP 0
-
-extern int getch(void);
-void ungetch(int);
-void ungets(char []);
-int issep(int c, int c1, int c2, int c3);
 
 /* getop: get next operator or numeric operand */
 int getop(char s[])
@@ -41,12 +29,10 @@ int getop(char s[])
 	if (issep(c,'p','o','w'))
 		return POW;
 
-	/* 原书i在isdigit前面, 但是这里, 因为判断变量要用到i, 所以i要初始化为0 */
 	i = 0;
 	/* a very big problem, if input: '1' --- 'k' --- 'ctrl +d', 停止本次输入, 然而会hang住, 再ctrl + d, 会返回valuble, 就是说第二次的ctrl + d是让getop()了一个EOF */
 	/* 这里还是要加上if, 因为while后面的那几句要在while外面 */
 	if (islower(c) || isupper(c)) {
-		printf("variable? %c\n", c);
 		while (islower(c) || isupper(c))
 			s[++i] = c = getch();
 		s[i] = '\0';

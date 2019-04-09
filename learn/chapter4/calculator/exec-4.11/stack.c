@@ -9,9 +9,6 @@ void push(double f)
 {
 	int i;
 
-	extern int bufp;
-	printf("stack file print bufp: %d\n", bufp);
-
 	if (sp < MAXVAL)
 		val[sp++] = f;
 	else
