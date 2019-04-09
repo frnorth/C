@@ -24,17 +24,11 @@ int getch(void)
 
 void ungetch(int c)	/* push character back on input */
 {
-	int i;
-
 	if (bufp >= BUFSIZE)
 		printf("ungetch: too many characters\n");
 	else
 		buf[bufp++] = c;
-
-	printf("ungetch: ");
-	for (i = 0; i < bufp; i ++)
-		printf("%d %c\t", i, buf[i]);
-	printf("\n");
+	printf("%d\t%d%c\t%d%c\n", bufp, buf[0],buf[0], buf[bufp - 1],buf[bufp - 1]);
 }
 
 /* where to use this function? */
