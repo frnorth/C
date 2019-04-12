@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+//#define VAL 0
+#include "preprocesser.h"
+
 #define forever for (;;)
 #define max(A, B) ((A) > (B) ? (A) : (B))
 
@@ -31,7 +34,9 @@ main()
 	dprint(i);
 	swap(int, i, j);
 	dprint(i);
+	printf("haha"   "yeah!\n");
 	//forever;
+	HELLO;
 	
 }
 
