@@ -1,7 +1,7 @@
-#include "global_conf.h"
-#include "random_list.h"
-#include "fitness.h"
-#include "mysga.h"
+#include"global_conf.h"
+#include"random_list.h"
+#include"fo.h"
+#include"mysga.h"
 
 char* char_char(char *c1, char *c2) {
 	char *two = (char *)malloc(strlen(c1)+strlen(c2)); 
