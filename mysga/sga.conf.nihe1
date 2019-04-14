@@ -1,7 +1,0 @@
-pop_size			200
-generation_num		20
-variable_num		1
-chrom_length		20
-crossover_prob		0.5
-mutation_prob		0.02
-variable_down_1		0	variable_up_1		10

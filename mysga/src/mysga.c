@@ -1,6 +1,6 @@
 #include"global_conf.h"
 #include"random_list.h"
-#include"fo.h"
+#include"fitness.h"
 #include"mysga.h"
 
 char* char_char(char *c1, char *c2) {
@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
 		exit(-1);
 	}
 	char *sga_conf_path = char_char(path, "/sga.conf"); 
-	char *sga_evolution_path = char_char(path, "/sga_evolution.txt"); 
+	char *sga_evolution_path = char_char(path, "/evolution.txt"); 
 	printf("wotk path: %s\n", path); 
 	printf("conf path: %s\n", sga_conf_path); 
 	printf("evolution path: %s\n", sga_evolution_path); 
@@ -179,7 +179,8 @@ int main(int argc, char **argv) {
 	/*******************************************************************************************/
 	for(gen = 0; gen < generation_num; gen++) {
 		if(gen%10==0)
-			printf("%5d",gen);
+			/* if printf horizontally without '\n', gen will not be print along with evolution */
+			printf("%5d\n",gen);
 
 		/* calculate the variable's value and fitness */
 		for(i = 0; i < pop_size; i++) {
