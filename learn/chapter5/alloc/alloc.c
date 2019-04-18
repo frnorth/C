@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define ALLOCSIZE 100
+#define ALLOCSIZE 1000
 
 static char allocbuf[ALLOCSIZE];
 static char *allocp = allocbuf;
