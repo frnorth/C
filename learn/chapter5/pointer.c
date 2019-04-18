@@ -4,7 +4,9 @@
 #define defprintc(x) printf(#x ": %c\n", x)
 #define defprints(x) printf(#x ": %s\n", x)
 
-void swap(int *pa, int *pb);
+void swap(int *, int *);
+int strlen2(char *);
+int strlen3(char *);
 
 main()
 {
@@ -48,6 +50,7 @@ main()
 	defprint(&z[0]);
 
 	defprint(strlen2("Hello World!"));
+	defprint(strlen3("Hello World!"));
 
 	/* 数组是可以越界的? */
 	z[-1] = -111;
@@ -55,8 +58,8 @@ main()
 	defprint(z[-1]);
 	defprint(z[100]);
 	for (i = -100; i < 100; i++) {
-		printf("%d ", i);
-		defprint(k[i]);
+		//printf("%d ", i);
+		//defprint(k[i]);
 	}
 
 	if (ip > ir)
@@ -94,3 +97,14 @@ int strlen2(char *s)
 		n++;
 	return n;
 }
+
+int strlen3(char *s)
+{
+	char *t = s;
+
+	while (*t != '\0')
+		t++;
+	return t-s;
+}
+
+
