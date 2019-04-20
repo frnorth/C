@@ -20,8 +20,8 @@ main()
 	char s0[LENGTH];
 	//char *s = "Hello World!";
 	//char *s = s0;
-	char *s = "yeahahasdfsdhaha";
-	char *t = "haha";
+	char *s = "haha1sdfsd";
+	char *t = "haha1efsdf";
 
 	//getline2(s0, LENGTH);
 
@@ -56,6 +56,9 @@ main()
 	/* exer 5-5 2 */
 	strncat2(s0, t, 10);
 	defprints(s0);
+
+	/* exer 5-5 3 */
+	defprint(strncmp2(s, t, 5));
 
 	return 0;
 }
@@ -141,5 +144,10 @@ void strncat2(char *s, char *t, int n)
 
 int strncmp2(char *s, char *t, int n)
 {
-	
+	char *t0 = t;
+
+	for (; (t - t0 < n - 1) && (*s == *t); s++, t++)
+		if (*s == '\0')
+			return 0;
+	return *s - *t;
 }
