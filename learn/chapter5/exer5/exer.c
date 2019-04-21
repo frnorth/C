@@ -12,6 +12,7 @@ int strend(char *s, char *t);
 int strend2(char *s, char *t);
 void strncpy2(char *s, char *t, int n);
 void strncat2(char *s, char *t, int n);
+int atoi(char *s);
 
 main()
 {
@@ -22,6 +23,7 @@ main()
 	//char *s = s0;
 	char *s = "haha1sdfsd";
 	char *t = "haha1efsdf";
+	char *num2 = "123456";
 
 	//getline2(s0, LENGTH);
 
@@ -59,6 +61,9 @@ main()
 
 	/* exer 5-5 3 */
 	defprint(strncmp2(s, t, 5));
+
+	/* exer 5-5 4*/
+	defprint(atoi("  -25452211  "));
 
 	return 0;
 }
@@ -150,4 +155,18 @@ int strncmp2(char *s, char *t, int n)
 		if (*s == '\0')
 			return 0;
 	return *s - *t;
+}
+
+int atoi(char *s)
+{
+	int sign, num;
+
+	for (; isspace(*s); s++)
+		;
+	sign = *s == '-' ? -1 : 1;
+	if (sign == '+' || *s == '-')
+		s++;
+	for (num = 0; isdigit(*s); s++)
+		num = num * 10 + *s - '0';
+	return num * sign;
 }
