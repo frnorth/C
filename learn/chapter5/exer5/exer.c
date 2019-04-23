@@ -25,7 +25,7 @@ main()
 	//char *s = "Hello World!";
 	//char *s = s0;
 	char *s = "dgdfhaha1sdf";
-	char *t = "1s";
+	char *t = "ha1s";
 	//char *s = "";
 	//char *t = "";
 	char *num2 = "123456";
