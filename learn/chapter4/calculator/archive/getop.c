@@ -33,7 +33,8 @@ int getop(char s[])
 	/* a very big problem, if input: '1' --- 'k' --- 'ctrl +d', 停止本次输入, 然而会hang住, 再ctrl + d, 会返回valuble, 就是说第二次的ctrl + d是让getop()了一个EOF */
 	/* 这里还是要加上if, 因为while后面的那几句要在while外面 */
 	if (islower(c) || isupper(c)) {
-		while (islower(c) || isupper(c))
+		/* ++i not i++, cause s[0] already has a value in the very beginning, and could filter out the '\n' at the end */
+		while (islower(c) || isupper(c) || isdigit(c))
 			s[++i] = c = getch();
 		s[i] = '\0';
 		/*  如果名字val 后面跟了个1, 那么, 如果没有下面的判断, 1就不会被放回到input中 */

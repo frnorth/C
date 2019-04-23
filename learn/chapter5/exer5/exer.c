@@ -13,6 +13,9 @@ int strend2(char *s, char *t);
 void strncpy2(char *s, char *t, int n);
 void strncat2(char *s, char *t, int n);
 int atoi(char *s);
+void itoa(int n, char *s);
+void reverse(char *s);
+int strindex(char *s, char *t);
 
 main()
 {
@@ -21,8 +24,10 @@ main()
 	char s0[LENGTH];
 	//char *s = "Hello World!";
 	//char *s = s0;
-	char *s = "haha1sdfsd";
-	char *t = "haha1efsdf";
+	char *s = "dgdfhaha1sdf";
+	char *t = "1s";
+	//char *s = "";
+	//char *t = "";
 	char *num2 = "123456";
 
 	//getline2(s0, LENGTH);
@@ -62,8 +67,15 @@ main()
 	/* exer 5-5 3 */
 	defprint(strncmp2(s, t, 5));
 
-	/* exer 5-5 4*/
+	/* exer 5-5 4 */
 	defprint(atoi("  -25452211  "));
+
+	/* exer 5-5 5 */
+	itoa(12345, s0);
+	defprints(s0);
+
+	/* exer 5-5 6 */
+	defprint(strindex(s, t));
 
 	return 0;
 }
@@ -169,4 +181,53 @@ int atoi(char *s)
 	for (num = 0; isdigit(*s); s++)
 		num = num * 10 + *s - '0';
 	return num * sign;
+}
+
+void itoa(int n, char *s)
+{
+	char *s0 = s;
+
+	int sign = n > 0 ? 1 : -1;
+
+	n = sign * n;
+	do {
+		defprintc(*s);
+		*s++ = n % 10 + '0';
+	} while (n /= 10);
+	if (sign < 0)
+		*s++ = '-';
+	*s = '\0';
+	defprints(s0);
+	reverse(s0);
+}
+
+void reverse(char *s)
+{
+	int tmp;
+	char *t = s;
+
+	for (; *t != '\0'; t++)
+		;
+	while (t > s) {
+		tmp = *--t;
+		defprintc(*s);
+		defprintc(*t);
+		*t = *s;
+		*s++ = tmp;
+	}
+}
+
+int strindex(char *s, char *t)
+{
+	char *tmpt, *tmps, *s0 = s;
+	for (; *s != '\0'; s++) {
+		//for (tmpt = t, tmps = s; *tmpt != '\0' && *tmpt == *tmps; tmpt++, tmps++)
+		//	;
+		//if (tmpt != t && *tmpt == '\0')
+		//	return s - s0 + 1;
+		for (tmpt = t, tmps = s; *tmpt++ == *tmps++;)
+			if (*tmpt == '\0')
+				return s - s0 + 1;
+	}
+	return -1;
 }
