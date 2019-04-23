@@ -8,7 +8,7 @@ int getline2(char s[], int lim)
 	i = 0;
 
 /*	或许用这个跟简洁一些. 而且注意这里要用--lim, 而不是lim--
-*/	while (--lim  && (c = getchar()) != EOF) {
+ */	while (--lim  && (c = getchar()) != EOF) {
 		s[i++] = c;
 		if (c == '\n')
 			break;

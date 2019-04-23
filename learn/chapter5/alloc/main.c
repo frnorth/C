@@ -17,6 +17,8 @@ main()
 	/* this would reaise segment fault, while defprinti(ss) would not */
 	defprinti(ss);
 	defprints(ss);
+	if (ss == NULL)
+		defprinti(ss);
 	//defprinti(tt);
 	//defprints(tt);
 
