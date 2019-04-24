@@ -17,6 +17,7 @@ main()
 
 	if ((nlines = readlines(lineptr, MAXLINES)) > 0) {
 		qsort(lineptr, 0, nlines - 1);
+		printf(">>>>>>>>>>>>>>>>>>\n");
 		writelines(lineptr, nlines);
 		return 0;
 	} else {
