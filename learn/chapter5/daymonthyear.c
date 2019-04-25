@@ -27,7 +27,7 @@ main()
 {
 	int month, day;
 
-	defprint(day_of_year(1993, 11, 31));
+	defprint(day_of_year(1993, 11, 21));
 	month_day(2000,377, &month, &day);
 	defprint(month);
 	defprint(day);
@@ -38,37 +38,53 @@ main()
 /* day_of_year: set day of year from month & day */
 int day_of_year(int year, int month, int day)
 {
-	int i, leap;
+	//int i, leap;
+	char *d = daytab[0];
 
-	leap = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+	//leap = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+	d += year % 4 == 0 && year % 100 != 0 || year % 400 == 0 ? 13 : 0;
 
+	//ERRCHECK(month,1, 12);
+	//ERRCHECK(day,1, daytab[leap][month]);
 	ERRCHECK(month,1, 12);
-	ERRCHECK(day,1, daytab[leap][month]);
+	ERRCHECK(day,1, *(d + month));
 
-	for (i = 1; i < month; i++)
-		day += daytab[leap][i];
+	defprint(daytab);
+	defprint(daytab[0]);
+	defprint(daytab[1]);
+	defprint(*daytab[1]);
+	while (--month) {
+		day += *++d;
+	}
+
+	//for (i = 1; i < month; i++)
+	//	day += daytab[leap][i];
 	return day;
 }
 
 /* month_day: set month, day from day of year */
 void month_day(int year, int yearday, int *pmonth, int *pday)
 {
-	int i, leap;
+	//int i, leap;
+	int leap;
+	char *d, *d0;
 
 	leap = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
-
+	d0 = d = daytab[0] + leap;
 	ERRCHECKVOID(yearday, 1, 365 + leap);
-	defprint(daytab[leap][13]);
-	defprint(daytab[leap][14]);
-	defprint(daytab[leap][15]);
-	defprint(daytab[leap + 1][13]);
-	defprint(daytab[leap + 1][14]);
-	for (i = 1; yearday > daytab[leap][i] && i < 13; i++) {
-		defprint(i);
-		defprint(yearday);
-		yearday -= daytab[leap][i];
-	}
-	*pmonth = i;
+	//defprint(daytab[leap][13]);
+	//defprint(daytab[leap][14]);
+	//defprint(daytab[leap][15]);
+	//defprint(daytab[leap + 1][13]);
+	//defprint(daytab[leap + 1][14]);
+	//for (i = 1; yearday > daytab[leap][i] && i < 13; i++) {
+	//	defprint(i);
+	//	defprint(yearday);
+	//	yearday -= daytab[leap][i];
+	//}
+	while (d - d0 < 13 && yearday > *++d)
+		yearday -= *d;
+	*pmonth = d - d0;
 	*pday = yearday;
 }
 
