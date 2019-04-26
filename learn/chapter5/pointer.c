@@ -13,6 +13,12 @@ main()
 	int i, x = 10, y = 2, z[10], k[10];
 	int *ip, *iq, *ir;
 	char *ipc, *iqc, *irc;
+	char *ccc;
+
+	defprint(ccc);
+	ccc = "Hello World!";
+	defprint(ccc);
+	defprints(ccc);
 
 	/* 打开这个注释, 就会报段错误? */
 	//defprint(ip);
