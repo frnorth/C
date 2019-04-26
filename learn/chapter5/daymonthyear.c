@@ -70,7 +70,7 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 	char *d, *d0;
 
 	leap = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
-	d0 = d = daytab[0] + leap;
+	d0 = d = daytab[0] + leap * 13;
 	ERRCHECKVOID(yearday, 1, 365 + leap);
 	//defprint(daytab[leap][13]);
 	//defprint(daytab[leap][14]);
@@ -82,7 +82,7 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 	//	defprint(yearday);
 	//	yearday -= daytab[leap][i];
 	//}
-	while (d - d0 < 13 && yearday > *++d)
+	while (yearday > *++d && d - d0 < 12)
 		yearday -= *d;
 	*pmonth = d - d0;
 	*pday = yearday;
