@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define defprint(x) printf(#x ": %d\n", x)
+#define defprintf(x) printf(#x ": %g\n", x)
 #define defprintc(x) printf(#x ": %c\n", x)
 #define defprints(x) printf(#x ": %s\n", x)
 
@@ -82,6 +84,10 @@ main()
 	//*(iqc + 1) = 'h';
 	defprintc(*(iqc + 1));
 	defprints(iqc);
+
+	defprintf(atof("11.002314"));
+	defprintf(atof("11.345.ttit"));
+	defprint(atoi("11ttt"));
 
 	return 0;
 }
