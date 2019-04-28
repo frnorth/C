@@ -35,12 +35,12 @@ void entab(int tabstop) {
 	i = 0;
 	nspace = 0;
 	while ((c = getchar()) != EOF) {
-		if (c == ' ') {
-			if (nspace == 0)
-				nspace = 1;
-			else
+		if (c == ' ') //{
+			//if (nspace == 0)
+			//	nspace = 1;
+			//else
 				++nspace;
-		}
+		//}
 		else /*if (c != '\n') 这个不加更有道理?*/ {
 			for (j = 0; j < nspace; ++j)
 				printf("#");
