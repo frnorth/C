@@ -89,6 +89,8 @@ main()
 	defprintf(atof("11.345.ttit"));
 	defprint(atoi("11ttt"));
 
+	defprintf(atof("1.0E+02"));
+
 	return 0;
 }
 
