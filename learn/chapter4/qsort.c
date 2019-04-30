@@ -1,23 +1,27 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-void qsort(int v[], int left, int j);
+void qsort2(int v[], int left, int j);
 
 main()
 {
 	int i;
+	//int array[] = {54, 57, 214, 36, 21, 1, 35, 3, 68, 87, 156, 233, 124};
 	int array[] = {54, 57, 214, 36, 21, 1, 35, 3, 68, 87, 156, 233, 124};
+	void *a = array;
 
 	for (i = 0; i < 13; i++)
 		printf("%d  ", array[i]);
 	printf("\n");
-	qsort(array, 1, 11);
+	//qsort2(array, 1, 11);
+	qsort2(a, 1, 11);
 	for (i = 0; i < 13; i++)
 		printf("%d  ", array[i]);
 	printf("\n");
 	
 }
 
-void qsort(int v[], int left, int right)
+void qsort2(int v[], int left, int right)
 {
 	int i, last;
 	void swap(int v[], int i, int j);
@@ -30,8 +34,8 @@ void qsort(int v[], int left, int right)
 		if (v[i] < v[left])
 			swap(v, ++last, i);
 	swap(v, left, last);	/* restore partition elem */
-	qsort(v, left, last - 1);
-	qsort(v, left + 1, right);
+	qsort2(v, left, last - 1);
+	qsort2(v, left + 1, right);
 }
 
 /* swap: interchange v[i] and v[j] */
