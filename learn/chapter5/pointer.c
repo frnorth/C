@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 
 #define defprint(x) printf(#x ": %d\n", x)
@@ -12,7 +13,7 @@ int strlen3(char *);
 
 main()
 {
-	int i, x = 10, y = 2, z[10], k[10];
+	int i, x = 10, y = 2, z[10]= {'A','a','B','b','C','c','D','d'}, k[10];
 	int *ip, *iq, *ir;
 	char *ipc, *iqc, *irc;
 	char *ccc;
@@ -90,6 +91,13 @@ main()
 	defprint(atoi("11ttt"));
 
 	defprintf(atof("1.0E+02"));
+
+	defprints((void *)ccc);
+	defprints((int *)ccc);
+	defprints(((float *)ccc));
+
+	defprintc(tolower(z[0]));
+	defprintc(tolower(z[1]));
 
 	return 0;
 }
