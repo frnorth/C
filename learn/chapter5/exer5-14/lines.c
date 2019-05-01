@@ -3,7 +3,7 @@
 #define MAXLEN 1000 /* max length of any inpot lines */
 int getline2(char *, int);
 char *alloc(int);
-int isdirectory(char *);
+//int isdirectory(char *);
 
 /* readlines: read input lines */
 int readlines(char *lineptr[], int maxlines)
@@ -18,7 +18,7 @@ int readlines(char *lineptr[], int maxlines)
 		else {
 			line[len - 1] = '\0'; /* delete newline */
 			strcpy(p, line);
-			printf("%s %d\n", p, nlines);
+			//printf("%s %d\n", p, nlines);
 			lineptr[nlines++] = p;
 		}
 	return nlines;
@@ -32,6 +32,16 @@ void writelines2(char *lineptr[], int nlines)
 		printf("%s\n", lineptr[i]);
 }
 
+void writelines3(char *lineptr[], int linestart, int lineend)
+{
+	int i;
+
+	for (i = 0; i < linestart; i++, lineptr++)
+		;
+	for (; i < lineend; i++)
+		printf("%s\n", *lineptr++);
+}
+/*
 void writelines(char *lineptr[], int nlines, int directory)
 {
 	if (directory > 0) {
@@ -44,13 +54,5 @@ void writelines(char *lineptr[], int nlines, int directory)
 	else
 		while (nlines--)
 			printf("%s\n", *lineptr++);
-}
+}*/
 
-int isdirectory(char *s)
-{
-	for (; isdigit(*s) || isupper(*s) || islower(*s) || isspace(*s); s++)
-		;
-	if (*s == '\0')
-		return 1;
-	return 0;
-}

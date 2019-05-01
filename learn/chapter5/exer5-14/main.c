@@ -14,11 +14,15 @@ int strcmpf(const char *, const char *);
 void qsort2(void *v[], int, int,
 		int (*)(void *, void *),
 		int );
+int separate(void *v[], int, int, int (*)(void *));
+int isdirectory(char *s);
+int isnumeric(char *s);
 
 /* sort input lines */
 main(int argc, char *argv[])
 {
 	int c, nlines, reverse = 1, numeric = 0, fold = 0, directory = 0; /* number of input lines read */
+	int dstart, nstart;
 	while (--argc > 0 && (*++argv)[0] == '-')
 		while (c = *++argv[0])
 			switch (c) {
@@ -51,11 +55,27 @@ main(int argc, char *argv[])
 	}
 
 	if ((nlines = readlines(lineptr, MAXLINES)) > 0) {
-		qsort2((void **)lineptr, 0, nlines - 1,
+		dstart = 0;
+		nstart = nlines;
+		if (directory == 1) {
+			dstart = separate((void **)lineptr, 0, nlines - 1, (int (*)(void *))isdirectory);
+			defprint(dstart);
+		}
+		if (numeric == 1) {
+			nstart = separate((void **)lineptr, dstart, nlines - 1, (int (*)(void *))isnumeric);
+			defprint(nstart);
+		}
+		qsort2((void **)lineptr, 0, dstart - 1,
+			(int (*)(void *, void *))(fold ? strcmpf : strcmp),
+			reverse);
+		qsort2((void **)lineptr, dstart, nstart - 1,
+			(int (*)(void *, void *))(fold? strcmpf : strcmp),
+			reverse);
+		qsort2((void **)lineptr, nstart, nlines - 1,
 			(int (*)(void *, void *))(numeric ? numcmp : (fold? strcmpf : strcmp)),
 			reverse);
 		printf(">>>>>>>>>>>>>>>>>>\n");
-		writelines(lineptr, nlines, directory);
+		writelines3(lineptr, 0, nlines);
 		return 0;
 	} else {
 		printf("error: input too big to sort\n");
