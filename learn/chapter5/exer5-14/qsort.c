@@ -4,7 +4,12 @@
 
 #define defprintf(x) printf(#x ": %f\n", x)
 #define defprints(x) printf(#x ": %s\n", x)
-int numcmp(const char *, const char *);
+#define defprint(x) printf(#x ": %d\n", x)
+
+int isnumeric(char *s);
+int isdirectory(char *s);
+int strcmpf(const char *s1, const char *s2);
+int numcmp(const char *s1, const char *s2);
 
 void qsort2(void *v[], int left, int right,
 		int (*comp)(void *, void *),
@@ -23,6 +28,25 @@ void qsort2(void *v[], int left, int right,
 	swap(v, left, last);	/* restore partition elem */
 	qsort2(v, left, last - 1, comp, reverse);
 	qsort2(v, left + 1, right, comp, reverse);
+}
+
+int separate(void *v[], int start, int end, int (*iswhat)(void *))
+{
+	void swap(void *v[], int, int);
+
+	while (start < end) {
+		//defprint(start);
+		//defprint(end);
+		if (iswhat(v[start]) == 0)
+			start++;
+		else {
+			if (iswhat(v[end]) == 1)
+				end--;
+			else
+				swap(v, start, end);
+		}
+	}
+	return start;
 }
 
 /* swap: interchange v[i] and v[j] */
@@ -68,4 +92,24 @@ int strcmpf(const char *s1, const char *s2)
 		return *t - *s;
 	}
 	return tolower(*s) - tolower(*t);
+}
+
+int isdirectory(char *s)
+{
+	if (isnumeric(s))
+		return 1;
+	for (; isdigit(*s) || isupper(*s) || islower(*s) || isspace(*s); s++)
+		;
+	if (*s == '\0')
+		return 1;
+	return 0;
+}
+
+int isnumeric(char *s)
+{
+	if (isdigit(*s))
+		return 1;
+	else if ((*s == '.' || *s == '-' || *s == '+') && isdigit(*(s + 1)))
+		return 1;
+	return 0;
 }
