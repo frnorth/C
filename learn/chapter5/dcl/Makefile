@@ -1,4 +1,4 @@
-objects= getch.o gettoken.o main.o
+objects= getch.o gettoken.o main.o dcl.o
 
 dcl: $(objects)
 	cc -o dcl $(objects)
