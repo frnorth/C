@@ -1,8 +1,11 @@
+#include <stdio.h>
 #include <string.h>
-#include "dclh.h"
+#include "declar.h"
 
 int gettoken(void)
 {
+	printf("-------gettoken\n");
+
 	int c, getch(void);
 	void ungetch(int);
 	char *p = token;
