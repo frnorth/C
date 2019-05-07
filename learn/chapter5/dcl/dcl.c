@@ -20,6 +20,7 @@ void dcl(void)
 void dirdcl(void)
 {
 	printf("-------dirdcl\n");
+	/* is this nescessary? */
 	int type;
 
 	if (tokentype == '(') {		/* ( dcl ) */
@@ -30,12 +31,43 @@ void dirdcl(void)
 		strcpy(name, token);
 	else
 		printf("error: expected name or (dcl)\n");
+
+	/* exer 5-20 */
+	while ((type = gettoken()) == PARENS || type == BRACKETS || type == '(')
+		if (type == PARENS)
+			strcat(out, " function returning");
+		else if (type == BRACKETS){
+			strcat(out, " array");
+			strcat(out, token);
+			strcat(out, " of");
+		} else {
+			strcat(out, " function with argument type");
+			while ((type = gettoken()) == NAME) {
+				if ((type = gettoken()) == '*')
+					strcat(out, " pointer to");
+				else
+					ungettoken();
+				strcat(out, " ");
+				strcat(out, token);
+				if ((type = gettoken()) == ',')
+					strcat(out, " and");
+				else
+					ungettoken();
+			}
+			if (type != ')')
+				printf("error: type of function argument need be NAME\n");
+			strcat(out, " returning");
+		}
+	/*----------*/
+
+	/*
 	while ((type = gettoken()) == PARENS || type == BRACKETS)
 		if (type == PARENS)
 			strcat(out, " function returning");
-		else {
+		else if (type == BRACKETS){
 			strcat(out, " array");
 			strcat(out, token);
 			strcat(out, " of");
 		}
+	*/
 }
