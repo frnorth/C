@@ -6,6 +6,8 @@
 #define max(a, b) ((a) > (b) ? (a) : (b))
 #define XMAX 200
 #define YMAX 100
+#define XLEN 5
+#define YLEN 10
 
 struct point {
 	int x;
@@ -17,23 +19,35 @@ struct rect {
 	struct point pt2;
 };
 
+struct test {
+	int len;
+	int num[YLEN];
+	int *n;
+} t[XLEN], *tp = t;
+
 main()
 {
-	/* why need declar this? */
+	/* decleration, and why need declar the sqrt function? */
 	double sqrt(double);
-	struct point middle;
-	struct point pointadd;
-	struct rect screen;
 	struct point makepoint(int, int);
 	struct point addpoint(struct point, struct point);
 	struct rect canonrect(struct rect);
 	void printrect(struct rect r);
 
+	/* defination */
+	int i, j;
+	struct point middle, *pp = &middle;
+	struct point pointadd;
+	struct rect screen, *rp = &screen;
+
+	/* initialization */
 	screen.pt1 = makepoint(XMAX, 0);
 	screen.pt2 = makepoint(0, YMAX);
+
 	printrect(screen);
 	screen = canonrect(screen);
 	printrect(screen);
+
 	middle = makepoint((screen.pt1.x + screen.pt2.x)/2, (screen.pt1.y + screen.pt2.y)/2);
 	pointadd = addpoint(screen.pt1, screen.pt2);
 
@@ -47,6 +61,54 @@ main()
 
 	defprint(d, ptinrect(middle, screen));
 	defprint(d, ptinrect(pointadd, screen));
+
+	defprint(d, (*pp).x);
+	defprint(d, pp->x);
+	defprint(d, pp->y);
+	printrect(*rp);
+	defprint(d, rp->pt1.x);
+	defprint(d, rp->pt2.y);
+
+
+	for (i = 0; i < XLEN; i++) {
+		tp->n = tp->num;
+		tp++->num[0] = i;	
+	}
+	for (i = 0; i < XLEN; i++)
+		--tp;
+	/* ++tp->n */
+	for (i = 0; i < YLEN - 4; i++)
+		*++tp->n = 10 + i;
+	for (i = 0; i < XLEN - 1; i++)
+		++(++tp)->n;
+	for (i = 0; i < XLEN - 2; i++)
+		--tp;
+	/* (++tp)->n */
+	for (i = 0; i < XLEN - 2; i++)
+		*(++tp)->n = 20 + i;
+	for (i = 0; i < XLEN - 1; i++)
+		tp--->n++;
+	tp++;
+	/* tp++->n */
+	for (i = 0; i < XLEN - 1; i++)
+		*tp++->n = 30 + i;
+	for (i = 0; i < XLEN - 1; i++)
+		(--tp)->n++;
+	/* *tp->n++ */
+	for (i = 0; i < YLEN - 4; i++)
+		*tp->n++ = 40 + i;
+	for (i = 0; i < XLEN - 1; i++)
+		tp++->n++;
+	(--tp)->n += YLEN - 5;
+	/* (*p->str)++ */
+	for (i = 0; i < XLEN * XLEN * XLEN; i++)
+		(*tp->n)++;
+	/* print */
+	for (i = 0; i < XLEN; i++) {
+		for (j = 0; j < YLEN; j++)
+			printf("%4d", t[i].num[j]);
+		printf("\n");
+	}
 
 }
 
