@@ -4,10 +4,10 @@
 #define defprint(x) printf(#x ": %d\n", x)
 
 struct point {
-	int xxx;
+	int x;
 	int y;
 };
-
+int uuu;
 struct rect {
 	struct point pt1;
 	struct point pt2;
