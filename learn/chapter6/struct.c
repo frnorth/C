@@ -7,7 +7,8 @@ struct point {
 	int x;
 	int y;
 };
-
+int ttt;
+int yyy;
 struct rect {
 	struct point pt1;
 	struct point pt2;
