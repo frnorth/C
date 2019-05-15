@@ -7,13 +7,12 @@ struct point {
 	int x;
 	int y;
 };
-int ttt;
-int yyy;
+int uuu;
 struct rect {
 	struct point pt1;
 	struct point pt2;
 };
-
+int iii;
 main()
 {
 	/* why need declar this? */
