@@ -4,7 +4,7 @@
 #define defprint(x) printf(#x ": %d\n", x)
 
 struct point {
-	int x;
+	int xx;
 	int y;
 };
 
