@@ -6,6 +6,7 @@
 #define VAL 1
 #endif
 
+//#if A < sizeof(int) /* ... A sizeof can not be used in a #if line, because the preprocessor does not parse type names. */
 #if VAL == A
 	#define HEADFILE "a.h"
 #elif VAL == B

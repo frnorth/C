@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-//#define VAL 0
+#define VAL 2
 #include "preprocesser.h"
 
 #define forever for (;;)
@@ -9,7 +9,7 @@
 #undef hello
 void hello(void);
 
-#define dprint(expr) printf(#expr" = %d\n  while expr in \"\" will not be replaced\n", expr)
+#define dprint(expr) printf(#expr " = %d\n", expr)
 
 #define paste(x, y) x ## y
 
@@ -31,6 +31,7 @@ main()
 	printf("%d\n", max((i + j), (j * 2)));
 	dprint(i + j);
 	dprint(paste(i, j));
+	dprint(ij);
 	dprint(i);
 	swap(int, i, j);
 	dprint(i);
