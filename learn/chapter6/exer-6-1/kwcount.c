@@ -2,7 +2,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#define MAXWORD 100
+ #define MAXWORD 100
 #define defprint(type, x) printf(#x ": %" #type"\n", x)
 
 struct key {
@@ -23,20 +23,39 @@ struct key {
 
 //#define NKEYS (sizeof keytab / sizeof(struct key))
 #define NKEYS (sizeof keytab / sizeof keytab[0])
+/* this for exer-6-1*/
+#define ISNEWLINE newline = (strcmp(word, "\n") == 0) ? 1 : 0
 
 int getword(char *, int);
 int binsearch(char *, struct key *, int);
 
 main()
 {
-	int n;
+	int n, newline; /* newline for exer-6-1*/
 	char word[MAXWORD];
 
 	defprint(d, NKEYS);
 
+	newline = 1;
 	while (getword(word, MAXWORD) != EOF) {
 		defprint(s, word);
-		if(isalpha(word[0]))
+		/* this for exer-6-1*/
+		defprint(d, newline);
+		/* this for exer-6-1*/
+		if ((strcmp(word, "#define") == 0) && (newline == 1)) {
+			getword(word, MAXWORD);
+			ISNEWLINE;
+			defprint(s, word);
+			defprint(d, newline);
+			getword(word, MAXWORD);
+			ISNEWLINE;
+			defprint(s, word);
+			defprint(d, newline);
+		}
+		/* this for exer-6-1*/
+		ISNEWLINE;
+		defprint(d, newline);
+		if (isalpha(word[0]))
 			if((n = binsearch(word, keytab, NKEYS)) >= 0) {
 				defprint(d, n);
 				keytab[n].count++;
@@ -73,7 +92,9 @@ int getword(char *word, int lim)
 	void ungetch(int);
 	char *w = word;
 
-	while (isspace(c = getch()))
+	//while (isspace(c = getch()))
+	/* replace the isspace, cause '\n' was needed for instructing the newline */
+	while ((c = getch()) == ' ' || c == '\t')
 		;
 	/* exer-6-1 ignore the comments */
 	if (c == '/') {
@@ -93,13 +114,13 @@ int getword(char *word, int lim)
 	if (c != EOF)
 		*w++ = c;
 	/* exer-6-1 handle underscores words */
-	if (!(isalpha(c) || c == '_')) {
+	if (!(isalpha(c) || c == '_' || c == '#')) {
 		*w = '\0';
 		return c;
 	}
 	for (; --lim > 0; w++)
 		/* exer-6-1 handle underscores words */
-		if (!(isalnum(*w = getch()) || *w == '_')) {
+		if (!(isalnum(*w = getch()) || *w == '_' || *w == '#')) {
 			ungetch(*w);
 			break;
 		}
