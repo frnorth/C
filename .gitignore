@@ -1,33 +1,3 @@
-kip to content
-Pull requests
-Issues
-Marketplace
-Explore
-@frnorth
-
-2,773
-84,120
-
-    40,979
-
-github/gitignore
-Code
-Pull requests 78
-Projects 0
-Insights
-gitignore/C.gitignore
-@chaosdefinition chaosdefinition Update C.gitignore f76d089 on 1 Nov 2016
-@rye
-@dashed
-@aarian93p
-@Leandros
-@snisarg
-@dybekm
-@eugpermar
-@starrify
-@chaosdefinition
-@arsenm
-53 lines (44 sloc) 430 Bytes
 # Prerequisites
 *.d
 
