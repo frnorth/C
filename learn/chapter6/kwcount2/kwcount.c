@@ -7,7 +7,8 @@
 #define defprint(type, x) printf(#x ": %" #type"\n", x)
 
 int getword(char *, int);
-struct key *binsearch(char *, struct key *, int);
+struct key *
+binsearch(char *, struct key *, int);
 
 main()
 {
@@ -30,7 +31,8 @@ main()
 			printf("%4d %s\n", p->count, p->word);
 }
 
-struct key *binsearch(char *word, struct key *tab, int n)
+struct key *
+binsearch(char *word, struct key *tab, int n)
 {
 	int cond;
 	struct key *low = &tab[0];
