@@ -23,6 +23,7 @@ struct tnode *addtree(struct tnode *p, char *w)
 		defprint(d, p->lptr->linenum);
 		p->lptr->nextone = NULL;
 		p->lptr->lastone = NULL;
+		tnodenum++;
 	} else if ((cond = strncmp(w, p->word, cmplen)) == 0) {
 		defprint(s,"match node");
 		p->count++;		/* repeated word */
@@ -55,6 +56,19 @@ void treeprint(struct tnode *p)
 		printf("%4d\n", s->linenum);
 		treeprint(p->right);
 	}
+}
+
+/* treeprint: in-order print of tree p */
+struct tnode **treetoarray(struct tnode *p, struct tnode **s)
+{
+	if (p != NULL) {
+		s = treetoarray(p->left, s);
+		*s++ = p;
+		//defprint(s, (*(s - 1))->word);
+		//defprint(s, p->word);
+		s = treetoarray(p->right, s);
+	}
+	return s;
 }
 
 /* talloc: make a tnode */
