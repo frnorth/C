@@ -23,17 +23,16 @@ int getch(void)
 
 	if (bufp > 0) {
 		if (buf[--bufp] == EOF) {
-			printf("\t--> \033[33mgetch\033[0m: buf%d %c(%d)\n", bufp, buf[bufp], buf[bufp]);
+			printf("\t--> getch: %d %c(%d)\n", bufp, buf[bufp], buf[bufp]);
 			return EOFSTATE;
 		}
 		else {
-			printf("\t--> \033[33mgetch\033[0m: buf%d %c(%d)\n", bufp, buf[bufp], buf[bufp]);
-			//printf("\t--> getch: buf%d %c(%d)\n", bufp, buf[bufp], buf[bufp]);
+			printf("\t--> getch: %d %c(%d)\n", bufp, buf[bufp], buf[bufp]);
 			return buf[bufp];
 		}
 	}
 	c = getchar();
-	printf("\t--> \033[33mgetch\033[0m: %c(%d)\n", c, c);
+	printf("\t--> getch: %c(%d)\n", c, c);
 	return c;
 }
 
@@ -46,7 +45,7 @@ void ungetch(int c)	/* push character back on input */
 	else
 		buf[bufp++] = c;
 
-	printf("\t--> \033[36mungetch\033[0m: ");
+	printf("\t--> ungetch: ");
 	for (i = 0; i < bufp; i ++)
 		printf("%d %c(%d)\t", i, buf[i], buf[i]);
 	printf("\n");

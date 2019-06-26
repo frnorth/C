@@ -4,7 +4,6 @@
 #include "tnode.h"
 
 #define MAXWORD 100
-#define defprint(type, x) printf(#x ": %" #type"\n", x)
 
 struct tnode *addtree(struct tnode *, char *);
 void treeprint(struct tnode *);

@@ -5,6 +5,7 @@
 
 char *strdup2(char *);
 struct nlist *lookup(char *s);
+unsigned hash(char *s);
 
 /* install: put (name, defn) in hashtab */
 struct nlist *install(char *name, char *defn)
@@ -12,13 +13,15 @@ struct nlist *install(char *name, char *defn)
 	struct nlist *np;
 	unsigned hashval;
 
-	if (np = lookup(name) == NULL) { /* not found */
+	if ((np = lookup(name)) == NULL) { /* not found */
 		np = (struct nlist *) malloc(sizeof(*np));
 		if (np == NULL || (np->name = strdup2(name)) == NULL)
 			return NULL;
 		hashval = hash(name);
-		np-next = hashtab[hashval];
+		defprint(d, hashval);
+		np->next = hashtab[hashval];
 		hashtab[hashval] = np;
+		defprint(s, hashtab[hashval]->name);
 	} else		/* already there */
 		free((void *) np->defn);	/* free previous defn */
 	if ((np->defn = strdup2(defn)) == NULL)
