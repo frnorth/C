@@ -32,17 +32,17 @@ struct nlist *install(char *name, char *defn)
 
 void uninstall(char *name)
 {
-	struct nlist **p, **p2;
+	struct nlist **p, *p2;
 
 	if ((p = lookup2(name)) != NULL) {
 		free((*p)->name);
 		free((*p)->defn);
-		p2 = p;
+		p2 = *p;
 		if ((*p)->next != NULL)
 			*p = (*p)->next;
 		else
 			*p = NULL;
-		free(*p2);
+		free(p2);
 	}
 }
 

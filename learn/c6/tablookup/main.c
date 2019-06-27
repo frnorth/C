@@ -28,7 +28,7 @@ main()
 			uninstall(def);
 		}
 	}
-	for (i = 0; i < HASHSIXE; i++) {
+	for (i = 0; i < HASHSIXE - 90; i++) {
 		printf("%d ", i);
 		for (p = hashtab[i]; p != NULL; p = p->next)
 			printf("%s %s\t", p->name, p->defn);
