@@ -70,7 +70,7 @@ main()
 				printf("error: zero moduluer\n");
 			break;
 		case '\n':
-			printf("\t%.8g\n", pop());
+			printf("\t\033[36m%.8g\033[0m\n", pop());
 			//swap();
 			clear();
 			break;

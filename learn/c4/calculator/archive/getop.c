@@ -65,6 +65,8 @@ int getop(char s[])
 		ungetch(c);
 	return NUMBER;
 }
+
+/* is sin exp pow? */
 int issep(int c, int c1, int c2, int c3)
 {
 	int tmp;

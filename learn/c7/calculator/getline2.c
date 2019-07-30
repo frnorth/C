@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+/* getline: get line into s, return length */
+int getline2(char s[], int lim)
+{
+	int c, i;
+
+	i = 0;
+
+/*	或许用这个跟简洁一些. 而且注意这里要用--lim, 而不是lim--
+*/	while (--lim  && (c = getchar()) != EOF) {
+		s[i++] = c;
+		if (c == '\n')
+			break;
+	}
+
+/*	while (--lim > 0 && (c = getchar()) != EOF && c != '\n')
+		s[i++] = c;	
+	if (c = '\n')
+		s[i++] = c;
+*/
+	s[i] = '\0';
+	return i;
+}
