@@ -14,10 +14,10 @@ void push(double f)
 	else
 		printf("error: stack full, can't push %g\n", f);
 
-	printf("stack: ");
+	printf("\nstack: ");
 	for (i = 0; i < sp; i++)
 		printf("%f ", val[i]);
-	printf("\n");
+	printf("\n\n");
 }
 
 /* pop: pop and return top value from stack */
