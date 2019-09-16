@@ -1,7 +1,13 @@
 #include"global_conf.h"
-#include"random_list.h"
-#include"fitness.h"
-#include"mysga.h"
+
+double fitness_cal(double* c_variable);
+void random_int_list_init(int *, int, int, int);
+double random_int_list_correspond(int *, int, int, double, double c_up);
+void random_int_list_crossover(int *, int *, int, int);
+void random_int_list_mutation(int *, int, int, double);
+void random_int_list_print(int *, int, int);
+int random_double_list_find(double *,int,double);
+
 
 char* char_char(char *c1, char *c2) {
 	char *two = (char *)malloc(strlen(c1)+strlen(c2)); 
@@ -13,11 +19,6 @@ char* char_char(char *c1, char *c2) {
 int main(int argc, char **argv) {
 
 	int t0=time(0);
-
-//	if(argc < 2) {
-//		printf("where is the work place?\n"); 
-//		exit(-1); 		
-//	}
 	char hahac[100]; 
 	int hahad; 
 	double hahalf; 
