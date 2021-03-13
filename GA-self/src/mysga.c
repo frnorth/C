@@ -332,7 +332,7 @@ int main(int argc, char **argv) {
 	free(sga_conf_path); 
 	free(sga_evolution_path);
 
-	printf("\n%d\n",time(0)-t0); 
+	printf("\n%d\n",(int)time(0)-t0); 
 	return 0; 
 
 }
