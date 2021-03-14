@@ -30,7 +30,7 @@ int main() {
 
 	/*统计0-1000间的数的个数*/
 	for ( t = 0; t < 1000000; t++) {
-		rand_num = rand_gaosi(7,0.3);
+		rand_num = rand_gaosi(7,0.3); // 精度为4的时候会有奇怪的事情，在分布右侧会有固定的形状, 4变大，如变成7，会正常
 		i =  (rand_num +1)*10000 / (20000 / N);
 		x[i]++;
 		fprintf(file2, "%d\t%f\n", i, rand_num);
@@ -51,7 +51,7 @@ double rand_gaosi(int preci, double W){
 	double randy =  randd(0, preci);
 	double f = exp(-randx * randx / W / W * 4 * log(2));
 	if (randy < f)
-		return rand() % 10000 > 5000 ? randx : -randx;
+		return rand() % 1000 > 500 ? randx : -randx;
 	else
 		rand_gaosi(preci, W);
 }
