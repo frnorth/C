@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<time.h>
+
+
+#define N 1000 //用于统计的坐标点数
+
+int main() {
+
+	double rand_distri(int, double);
+
+	double rand_num;
+	double test[N];
+	int x[N];
+	int i,j,t;
+	
+	FILE *file_numbers, *file_static;
+
+	srand((unsigned)time(NULL));
+	
+	file_numbers = fopen("./numbers.txt", "w");
+	file_static = fopen("./static.txt", "w");
+
+	for (i = 0; i < N; i++) {
+		x[i] = 0;
+	}
+
+	/*统计0-1间, 精度为10^-7的数, 的分布, 统计的间隔数(坐标点)为1000*/
+	for ( t = 0; t < 1000000; t++) { //产生1000000个随机数
+		rand_num = rand_distri(7,0.3); // 精度为4的时候会有奇怪的事情，在分布右侧会有固定的形状, 4变大，如变成7，会正常
+		i =  (rand_num +1) * 10000 / (20000 / N);
+		x[i]++;
+		fprintf(file_numbers, "%d\t%f\n", i, rand_num);
+		if (t % 100000 < 1)
+			printf("%d\n",t);
+	}
+
+	for (i = 0; i < N; i++) {
+		//test[i] = 1.0 / (exp(((double)i-500.0)/50.0) + 1.0);
+		//fprintf(file_static, "%d\t%f\n", i, test[i]);
+		fprintf(file_static, "%d\t%d\n", i, x[i]);
+	}
+
+	fclose(file_numbers);
+	fclose(file_static);
+
+}
+double rand_distri(int preci, double W){
+/* 返回-1 ~ 1, 精度为preci, 半高宽为W的高斯分布的随机数*/
+/* 精度最好远大于统计的间隔数 */
+	double randd();
+	double Gaussian(double, double);
+	double Fermi_Dirac(double);
+
+	double randx =  randd(0, preci);
+	double randy =  randd(0, preci);
+
+	//double f = Gaussian(randx, W);
+	double f = Fermi_Dirac(randx);
+
+	if (randy < f)
+		return rand() % 1000 > 500 ? randx : -randx;
+	else
+		rand_distri(preci, W);
+}
+
+double randd(int n, int m) {
+/* 返回0 ~ 10^n以内，小数点后m位的随机数 */
+	return rand()%(int)(pow(10, n+m))/pow(10, m);
+}
+
+double Gaussian(double x, double W) {
+/* 返回高斯函数值 */
+	return exp(-x * x / W / W * 4 * log(2));
+}
+
+double Fermi_Dirac(double x) {
+/* 返回费米狄拉克分布函数值 */
+	return 1.0 / (exp(((double)x - 0.5)/0.01) + 1.0);
+}

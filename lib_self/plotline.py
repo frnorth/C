@@ -4,7 +4,7 @@ import numpy as np
 # 不能有空行
 
 
-f=open("/home/wangjie/test/C/xes1/dis/result.txt")
+f=open("./static.txt")
 
 x = []
 y = []
